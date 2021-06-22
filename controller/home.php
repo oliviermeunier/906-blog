@@ -12,12 +12,13 @@ $options = [
 $pdo = new PDO($dsn, $user, $password, $options); // Création d'un objet de la classe PDO
 
 // Récupérer des données dans la BDD
-$sql = 'SELECT * FROM article ORDER BY created_at DESC';
+$sql = 'SELECT * 
+        FROM article AS A
+        INNER JOIN category AS C ON A.category_id = C.id_category  
+        ORDER BY A.created_at DESC';
 
 $pdoStatement = $pdo->query($sql);
 $articles = $pdoStatement->fetchAll();
-
-// dump($articles);
 
 // Affichage : inclusion du fichier de template
 $template = 'home'; 

@@ -78,7 +78,8 @@ $comments = $pdoStatement->fetchAll(); // Plusieurs commentaires possibles => fe
 
 // Requête de sélection de l'article à afficher
 $sql = 'SELECT * 
-        FROM article 
+        FROM article AS A
+        INNER JOIN category AS C ON A.category_id = C.id_category 
         WHERE id_article = ?';
 
 // Préparation de la requête SQL avec PDO pour se protéger des injections SQL
