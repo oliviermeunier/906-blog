@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:3306
--- Généré le : lun. 21 juin 2021 à 15:41
+-- Généré le : mar. 22 juin 2021 à 08:43
 -- Version du serveur :  5.7.24
 -- Version de PHP : 7.4.15
 
@@ -43,6 +43,30 @@ INSERT INTO `article` (`id_article`, `title`, `content`, `created_at`) VALUES
 (2, 'Euro 2021, la gazette : « KDB », la lucarne de « Titi » et le non-boycott', 'Dans un groupe B très ouvert, le Danemark va tenter de grappiller ses premiers points dans cet Euro face à la Russie. Auteurs d’une très belle prestation contre la Belgique malgré la défaite, les coéquipiers de Christian Eriksen, qui est sorti de l’hôpital après son malaise cardiaque, peuvent toujours espérer se qualifier. Mais cela passe forcément par une victoire contre la Russie. Dans l’autre match du groupe, la Belgique (6 points) affronte la Finlande (3 points), qui peut, elle aussi, espérer se qualifier.\r\n\r\nDans le groupe C, la deuxième place se jouera entre l’Autriche et l’Ukraine, qui possèdent chacune trois points. Un match nul et ce sont les joueurs d’Andreï Chevtchenko qui valideraient leur billet pour les huitièmes. Dans l’autre match du groupe, les Pays-Bas, assurés de finir premiers, pourront faire tourner l’effectif face à la Macédoine (0 point).', '2021-06-01 10:46:23'),
 (3, 'Nouvelle sortie réussie dans l’espace pour Thomas Pesquet', 'L’astronaute français Thomas Pesquet a regagné sans encombre dimanche 20 juin l’intérieur de la Station spatiale internationale (ISS) après une nouvelle sortie dans l’espace de plus de six heures, consacrée à l’installation de nouveaux panneaux solaires sur l’ISS.\r\n\r\nC’est la quatrième sortie de Thomas Pesquet dans l’espace, et la deuxième lors de cette mission, menée avec son coéquipier américain Shane Kimbrough. A 11 h 42 GMT, les deux hommes, arrivés à bord de la Station à la fin d’avril, ont mis en route la batterie interne de leur combinaison, puis ont ouvert l’écoutille du sas de décompression de l’ISS.\r\nLire aussi Thomas Pesquet dans la Station spatiale internationale : c’est peut-être un détail pour vous…\r\n\r\nThomas Pesquet, est sorti dans le vide en premier, suivi de son coéquipier. Durant six heures et vingt-huit minutes, les astronautes ont fini de positionner, fixer, brancher et déployer un premier panneau solaire nouvelle génération, long de 19 mètres, et commencé à en installer un second. Appelés iROSA, ces panneaux solaires sont censés augmenter les capacités de production d’énergie de l’ISS et ont été livrés par un cargo de SpaceX.', '2021-06-05 10:47:07');
 
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `comment`
+--
+
+CREATE TABLE `comment` (
+  `id_comment` int(11) NOT NULL,
+  `content` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` datetime NOT NULL,
+  `article_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `comment`
+--
+
+INSERT INTO `comment` (`id_comment`, `content`, `created_at`, `article_id`) VALUES
+(8, 't tyj ryukyuk yu', '2021-06-22 10:31:20', 1),
+(9, 'yuk tyjtyjty', '2021-06-22 10:31:23', 1),
+(10, 'ryukyrukry u', '2021-06-22 10:31:24', 1),
+(11, 'tkjyuk yuk', '2021-06-22 10:32:03', 3),
+(12, 'tyuky uiktuot uo', '2021-06-22 10:40:20', 1);
+
 --
 -- Index pour les tables déchargées
 --
@@ -54,6 +78,13 @@ ALTER TABLE `article`
   ADD PRIMARY KEY (`id_article`);
 
 --
+-- Index pour la table `comment`
+--
+ALTER TABLE `comment`
+  ADD PRIMARY KEY (`id_comment`),
+  ADD KEY `article_id` (`article_id`);
+
+--
 -- AUTO_INCREMENT pour les tables déchargées
 --
 
@@ -62,6 +93,12 @@ ALTER TABLE `article`
 --
 ALTER TABLE `article`
   MODIFY `id_article` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT pour la table `comment`
+--
+ALTER TABLE `comment`
+  MODIFY `id_comment` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

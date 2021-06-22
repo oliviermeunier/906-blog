@@ -5,3 +5,37 @@
         <div><?= $article['content']; ?></div>
     </article>
 </section>
+
+<section>
+
+    <!-- Affichage des messages d'erreur le cas échéant --> 
+    <?php if (isset($errors) && !empty($errors)): ?>
+        <?php foreach ($errors as $error): ?>
+            <p><?=$error;?></p>
+        <?php endforeach; ?>
+    <?php endif; ?>
+
+    <!-- Formulaire d'ajout de commentaire --> 
+    <form action="/article?article_id=<?=$article['id_article'];?>" method="POST">
+        <fieldset>
+            <legend>Ajouter un commentaire</legend>
+            <div>
+                <label for="content">Commentaire</label>
+                <textarea id="content" name="content"></textarea>
+            </div>
+            <input type="submit" value="Valider">
+        </fieldset>
+    </form>
+
+    <h2>Commentaires</h2>
+    <?php if ($comments): ?>
+        <ul> 
+            <?php foreach ($comments as $comment):?>
+                <li>
+                    <h3>Ajouté le <?= (new DateTime($comment['created_at']))->format('d/m/Y à H\hi '); ?></h3>
+                    <p><?=$comment['content'];?></p>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    <?php endif; ?>
+</section>

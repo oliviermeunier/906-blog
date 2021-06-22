@@ -20,7 +20,7 @@ $articles = $pdoStatement->fetchAll();
 // dump($articles);
 
 // Affichage : inclusion du fichier de template
-$template = 'home';
+$template = 'home'; 
 require '../templates/base.phtml';
 
 
