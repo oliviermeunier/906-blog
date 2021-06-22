@@ -1,10 +1,10 @@
 <section>
     <article>
-        <h2><?php echo $article['title']; ?></h2>
-        <small><?=$article['label']?></small>
+        <h2><?php echo htmlspecialchars($article['title']); ?></h2>
+        <small><?=htmlspecialchars($article['label'])?></small>
         <p><?= (new DateTime($article['created_at']))->format('d/m/Y'); ?></p>
-        <img src="<?=$article['image'];?>" alt="">
-        <div><?= $article['content']; ?></div>
+        <img src="<?=htmlspecialchars($article['image']);?>" alt="">
+        <div><?= htmlspecialchars($article['content']); ?></div>
     </article>
 </section>
 
@@ -35,7 +35,7 @@
             <?php foreach ($comments as $comment):?>
                 <li>
                     <h3>Ajouté le <?= (new DateTime($comment['created_at']))->format('d/m/Y à H\hi '); ?></h3>
-                    <p><?=$comment['content'];?></p>
+                    <p><?=htmlspecialchars($comment['content']);?></p>
                 </li>
             <?php endforeach; ?>
         </ul>

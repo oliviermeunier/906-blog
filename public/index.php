@@ -3,6 +3,9 @@
 // Inclusion du fichier d'autoload de composer
 require '../vendor/autoload.php';
 
+// Inclusion des dépendances
+require '../library/functions.php';
+
 /**
  * Le fichier index.php joue le rôle de Front Controller
  * Toutes les requêtes, toutes les pages du site passent par ce fichier
