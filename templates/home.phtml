@@ -5,6 +5,7 @@
             <h3><?php echo $article['title']; ?></h3>
             <small><?=$article['label']?></small>
             <p><?= (new DateTime($article['created_at']))->format('d/m/Y'); ?></p>
+            <img src="<?=$article['image'];?>" alt="">
             <div><?= mb_substr($article['content'], 0, 150); ?> [...]</div>
             <a href="/article?article_id=<?=$article['id_article'];?>">Lire la suite</a>
         </article>
