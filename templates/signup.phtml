@@ -1,0 +1,30 @@
+<section>
+    <h2>Créez votre compte</h2>
+
+    <!-- Affichage des messages d'erreur le cas échéant --> 
+    <?php if (isset($errors) && !empty($errors)): ?>
+        <?php foreach ($errors as $error): ?>
+            <p><?=$error;?></p>
+        <?php endforeach; ?>
+    <?php endif; ?>
+
+    <form action="/signup" method="POST">
+        <div>
+            <label for="firstname">Prénom</label>
+            <input type="text" id="firstname" name="firstname">
+        </div>
+        <div>
+            <label for="lastname">Nom</label>
+            <input type="text" id="lastname" name="lastname">
+        </div>
+        <div>
+            <label for="email">Email</label>
+            <input type="text" id="email" name="email">
+        </div>
+        <div>
+            <label for="password">Mot de passe</label>
+            <input type="password" id="password" name="password">
+        </div>
+        <input type="submit" value="Valider">
+    </form>
+</section>

@@ -107,3 +107,21 @@ function getArticleById(int $articleId)
 
     return selectOne($sql, [$articleId]);
 }
+
+function createUser(string $firstname, string $lastname, string $email, string $hash)
+{
+    $sql = 'INSERT INTO user
+            (firstname, lastname, email, password, created_at)
+            VALUES (?,?,?,?, NOW())';
+
+    executeQuery($sql, [$firstname, $lastname, $email, $hash]);
+}
+
+function getUserByEmail(string $email)
+{
+    $sql = 'SELECT * 
+            FROM user
+            WHERE email = ?';
+
+    return selectOne($sql, [$email]);
+}

@@ -35,6 +35,11 @@ switch($path) {
         require '../controller/article.php';
         break;
 
+    case '/signup':
+        require '../controller/signup.php';
+        break;
+    
+
     default:
         http_response_code(404);
         echo 'Erreur 404 : page non trouvée';
