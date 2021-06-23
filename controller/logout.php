@@ -4,7 +4,7 @@
 logout();
 
 // Message flash de confirmation 
-addFlash('VOus êtes déconnecté');
+addFlash('Vous êtes déconnecté');
 
 // Redirection vers la page d'accueil
 header('Location: /');
