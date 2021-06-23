@@ -28,9 +28,9 @@ if (!empty($_POST)) {
 
         // Message flash de confirmation 
         addFlash('Connexion réussie !');
-        
-        // Redirection
-        header('Location: /');
+
+        // Redirection vers la page d'accueil
+        header('Location: ' . url('/'));
         exit;
     }  
 }

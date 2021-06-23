@@ -7,5 +7,5 @@ logout();
 addFlash('Vous êtes déconnecté');
 
 // Redirection vers la page d'accueil
-header('Location: /');
+header('Location: ' . url('/'));
 exit;

@@ -46,7 +46,7 @@ if (!empty($_POST)) {
         addFlash('Votre compte a bien été créé, vous pouvez vous connecter !');
 
         // Redirection vers la page de connexion
-        header('Location: /login');
+        header('Location: ' . url('/login'));
         exit;
     }
 }

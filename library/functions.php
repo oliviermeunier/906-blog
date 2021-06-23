@@ -6,9 +6,9 @@
 function getPDOConnection()
 {
     // Connexion à la base de données
-    $dsn = 'mysql:dbname=wf3-906-blog;host=localhost;charset=utf8'; // DSN : Data Source Name (informations de connexion à la BDD)
-    $user = 'root'; // Utilisateur
-    $password = ''; // Mot de passe
+    $dsn = 'mysql:dbname='.DB_NAME.';host='.DB_HOST.';charset=utf8'; // DSN : Data Source Name (informations de connexion à la BDD)
+    $user = DB_USER; // Utilisateur
+    $password = DB_PASSWORD; // Mot de passe
     $options = [
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, // Pour afficher les erreurs SQL
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC // Mode de récupération des résultats
@@ -76,23 +76,24 @@ function getAllArticles()
     return $articles;
 }
 
-function addComment(string $content, int $articleId)
+function addComment(string $content, int $articleId, int $userId)
 {
     // Requête SQL d'insertion du commentaire
     $sql = 'INSERT INTO comment
-            (content, created_at, article_id)
-            VALUES (?, NOW(), ?)';
+            (content, created_at, article_id, user_id)
+            VALUES (?, NOW(), ?, ?)';
 
-    executeQuery($sql, [$content, $articleId]);
+    executeQuery($sql, [$content, $articleId, $userId]);
 }
 
 function getCommentsByArticleId(int $articleId)
 {
     // Requête SQL de sélection des commentaires associés à l'article
-    $sql = 'SELECT * 
-            FROM comment 
+    $sql = 'SELECT C.content, C.created_at, U.firstname, U.lastname 
+            FROM comment AS C
+            INNER JOIN user AS U ON C.user_id = U.id_user  
             WHERE article_id = ?
-            ORDER BY created_at DESC';
+            ORDER BY C.created_at DESC';
 
     return selectAll($sql, [$articleId]);
 }
@@ -198,6 +199,42 @@ function logout()
 }
 
 /**
+ * Retourne l'id de l'utilisateur connecté
+ */
+function getUserId()
+{
+    if (!isAuthenticated()){
+        return null;
+    }
+
+    return $_SESSION['user']['id_user'];
+}
+
+/**
+ * Retourne le nom complet de l'utilisateur connecté
+ */
+function getUserFullname()
+{
+    if (!isAuthenticated()){
+        return null;
+    }
+
+    return $_SESSION['user']['firstname'] . ' ' . $_SESSION['user']['lastname'];
+}
+
+/**
+ * Retourne le nom complet de l'utilisateur connecté
+ */
+function getUserEmail()
+{
+    if (!isAuthenticated()){
+        return null;
+    }
+
+    return $_SESSION['user']['email'];
+}
+
+/**
  * GESTION DES MESSAGES FLASH
  */
 function initFlash()
@@ -242,4 +279,26 @@ function getFlash()
 
     // On retourne les messages
     return $messages;
+}
+
+/**
+ * Construit une URL absolue (http://mon-site.com/ma-page) à partir d'une route et d'un tableau de paramètres
+ */
+function url(string $path, array $params = [])
+{
+    $url = SITE_BASE_URL . $path; // Ex. : http://localhost:8000/article
+
+    if ($params) {
+        $url .= '?' . http_build_query($params);
+    }
+
+    return $url;
+}
+
+/**
+ * Construit l'URL absolue d'une ressource (CSS, JS? images, etc)
+ */
+function asset(string $path)
+{
+    return SITE_BASE_URL . '/' . $path;
 }

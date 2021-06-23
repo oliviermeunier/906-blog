@@ -7,6 +7,7 @@ session_start();
 require '../vendor/autoload.php';
 
 // Inclusion des dépendances
+require '../app/config.php';
 require '../library/functions.php';
 
 /**

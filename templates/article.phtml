@@ -21,7 +21,7 @@
     <?php if (isAuthenticated()): ?>
 
         <!-- Formulaire d'ajout de commentaire --> 
-        <form action="/article?article_id=<?=$article['id_article'];?>" method="POST">
+        <form action="<?=url('/article', ['article_id' => $article['id_article']]);?>" method="POST">
             <fieldset>
                 <legend>Ajouter un commentaire</legend>
                 <div>
@@ -34,8 +34,8 @@
 
     <?php else: ?>
         <p>Pour poster un commentaire, 
-        <a href="/login">connectez-vous</a> 
-        ou <a href="/signup">créez un compte !</a></p>
+        <a href="<?=url('/login');?>">connectez-vous</a> 
+        ou <a href="<?=url('/signup');?>">créez un compte !</a></p>
     <?php endif; ?>
 
     <h2>Commentaires</h2>
@@ -43,7 +43,7 @@
         <ul> 
             <?php foreach ($comments as $comment):?>
                 <li>
-                    <h3>Ajouté le <?= (new DateTime($comment['created_at']))->format('d/m/Y à H\hi '); ?></h3>
+                    <h3>Ajouté par <?=htmlspecialchars($comment['firstname'] . ' ' . $comment['lastname'])?> le <?= (new DateTime($comment['created_at']))->format('d/m/Y à H\hi '); ?></h3>
                     <p><?=htmlspecialchars($comment['content']);?></p>
                 </li>
             <?php endforeach; ?>

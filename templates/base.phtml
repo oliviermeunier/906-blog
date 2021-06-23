@@ -5,18 +5,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mon blog</title>
+    <link rel="stylesheet" href="<?=asset('css/style.css');?>">
 </head>
 <body>
     <header>
-        <h1><a href="/">Mon blog</a></h1>
+        <h1><a href="<?=url('/');?>">Mon blog</a></h1>
         <nav>
             <!-- Si l'utilisateur n'est PAS connecté -->  
             <?php if (!isAuthenticated()): ?>
-                <a href="/signup">Créer un compte</a>
-                <a href="/login">Connexion</a>
+                <a href="<?=url('/signup');?>">Créer un compte</a>
+                <a href="<?=url('/login');?>">Connexion</a>
             <!-- Sinon (si l'utilisateur est connecté) -->
             <?php else: ?>
-                <a href="/logout">Déconnexion</a>
+                <a href="<?=url('/logout');?>">Déconnexion</a>
             <?php endif; ?>
         </nav>
     </header>

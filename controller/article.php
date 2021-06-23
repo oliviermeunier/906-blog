@@ -32,10 +32,11 @@ if (!empty($_POST)) {
     // Si je n'ai pas d'erreur (le tableau d'erreurs est vide)...
     if (empty($errors)) {
 
-        addComment($content, $articleId);
+        addComment($content, $articleId, getUserId());
 
         // Redirection HTTP pour repasser en GET et perdre les données (pour éviter de les poster à nouveau si on recharge la page)
-        header('Location: /article?article_id=' . $articleId);
+        // header('Location: /article?article_id=' . $articleId);
+        header('Location: ' . url('/article', ['article_id' => $articleId]));
         exit;
     }
 }
