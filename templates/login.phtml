@@ -1,0 +1,22 @@
+<section>
+    <h2>Connectez-vous</h2>
+
+    <!-- Affichage des messages d'erreur le cas échéant --> 
+    <?php if (isset($errors) && !empty($errors)): ?>
+        <?php foreach ($errors as $error): ?>
+            <p><?=$error;?></p>
+        <?php endforeach; ?>
+    <?php endif; ?>
+
+    <form action="/login" method="POST">
+        <div>
+            <label for="email">Email</label>
+            <input type="text" id="email" name="email">
+        </div>
+        <div>
+            <label for="password">Mot de passe</label>
+            <input type="password" id="password" name="password">
+        </div>
+        <input type="submit" value="Valider">
+    </form>
+</section>

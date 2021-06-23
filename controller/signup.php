@@ -42,11 +42,11 @@ if (!empty($_POST)) {
         // ...on insert les données dans la base
         createUser($firstname, $lastname, $email, $hash); 
 
-        // Message de confirmation 
+        // Message flash de confirmation 
+        addFlash('Votre compte a bien été créé, vous pouvez vous connecter !');
 
-
-        // Redirection vers la page d'accueil
-        header('Location: /');
+        // Redirection vers la page de connexion
+        header('Location: /login');
         exit;
     }
 }
