@@ -17,17 +17,26 @@
         <?php endforeach; ?>
     <?php endif; ?>
 
-    <!-- Formulaire d'ajout de commentaire --> 
-    <form action="/article?article_id=<?=$article['id_article'];?>" method="POST">
-        <fieldset>
-            <legend>Ajouter un commentaire</legend>
-            <div>
-                <label for="content">Commentaire</label>
-                <textarea id="content" name="content"></textarea>
-            </div>
-            <input type="submit" value="Valider">
-        </fieldset>
-    </form>
+    <!-- Si l'utilisateur est connecté, on affiche le formulaire d'ajout de commentaire -->
+    <?php if (isAuthenticated()): ?>
+
+        <!-- Formulaire d'ajout de commentaire --> 
+        <form action="/article?article_id=<?=$article['id_article'];?>" method="POST">
+            <fieldset>
+                <legend>Ajouter un commentaire</legend>
+                <div>
+                    <label for="content">Commentaire</label>
+                    <textarea id="content" name="content"></textarea>
+                </div>
+                <input type="submit" value="Valider">
+            </fieldset>
+        </form>
+
+    <?php else: ?>
+        <p>Pour poster un commentaire, 
+        <a href="/login">connectez-vous</a> 
+        ou <a href="/signup">créez un compte !</a></p>
+    <?php endif; ?>
 
     <h2>Commentaires</h2>
     <?php if ($comments): ?>

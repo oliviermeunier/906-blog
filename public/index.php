@@ -1,5 +1,8 @@
 <?php 
 
+// Démarrage de la session pour pouvoir utiliser $_SESSION
+session_start();
+
 // Inclusion du fichier d'autoload de composer
 require '../vendor/autoload.php';
 
@@ -38,7 +41,14 @@ switch($path) {
     case '/signup':
         require '../controller/signup.php';
         break;
-    
+
+    case '/login':
+        require '../controller/login.php';
+        break;
+
+    case '/logout':
+        require '../controller/logout.php';
+        break;
 
     default:
         http_response_code(404);
