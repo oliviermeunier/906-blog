@@ -32,23 +32,28 @@ $path = $_SERVER['PATH_INFO'] ?? '/';
 switch($path) {
     
     case '/':
-        require '../controller/home.php';
+        $controller = new \App\Controller\HomeController();
+        $controller->index();
         break;
 
     case '/article':
-        require '../controller/article.php';
+        $controller = new \App\Controller\ArticleController();
+        $controller->index();
         break;
 
     case '/signup':
-        require '../controller/signup.php';
+        $controller = new \App\Controller\AccountController();
+        $controller->signup();
         break;
 
     case '/login':
-        require '../controller/login.php';
+        $controller = new \App\Controller\AuthController();
+        $controller->login();
         break;
 
     case '/logout':
-        require '../controller/logout.php';
+        $controller = new \App\Controller\AuthController();
+        $controller->logout();
         break;
 
     default:
