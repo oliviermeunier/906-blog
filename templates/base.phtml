@@ -11,6 +11,11 @@
     <header>
         <h1><a href="<?=url('/');?>">Mon blog</a></h1>
         <nav>
+            <!-- Affichage dans le menu de la liste des catégories -->
+            <?php foreach ((new \App\Model\CategoryModel)->getAllCategories() as $category): ?>
+                <a href=""><?=$category['label'];?></a>
+            <?php endforeach; ?>
+
             <!-- Si l'utilisateur n'est PAS connecté -->  
             <?php if (!isAuthenticated()): ?>
                 <a href="<?=url('/signup');?>">Créer un compte</a>
