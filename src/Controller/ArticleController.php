@@ -64,4 +64,28 @@ class ArticleController {
         require '../templates/base.phtml';
     }
 
+
+    public function filterArticlesByCategory()
+    {
+        // Si il y a un problème avec l'id de l'article dans l'URL...
+        if ( !array_key_exists('category_id', $_GET) 
+            || !isset($_GET['category_id']) 
+            || !ctype_digit($_GET['category_id'])
+        ) {
+            // ... alors on affiche une page 404
+            http_response_code(404);
+            echo 'Erreur 404 : Page non trouvée';
+            exit; 
+        }
+
+        $categoryId = intval($_GET['category_id']);
+
+        $articleModel = new ArticleModel();
+        $articles = $articleModel->getAllArticles($categoryId);
+
+        // Affichage : inclusion du fichier de template
+        $template = 'articles_by_category'; 
+        require '../templates/base.phtml';
+    }
+
 }

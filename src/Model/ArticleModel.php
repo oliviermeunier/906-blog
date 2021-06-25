@@ -11,14 +11,22 @@ class ArticleModel extends AbstractModel {
     /**
      * Sélectionne tous les articles par date de création décroissante
      */
-    function getAllArticles()
+    function getAllArticles(int $categoryId = 0)
     {
+        $values = [];
+
         $sql = 'SELECT * 
                 FROM article AS A
-                INNER JOIN category AS C ON A.category_id = C.id_category  
-                ORDER BY A.created_at DESC';
+                INNER JOIN category AS C ON A.category_id = C.id_category';
+                
+        if ($categoryId) {
+            $values[] = $categoryId;
+            $sql .= ' WHERE A.category_id = ?';
+        }
 
-        $articles = $this->database->selectAll($sql);
+        $sql .= ' ORDER BY A.created_at DESC';
+
+        $articles = $this->database->selectAll($sql, $values);
 
         return $articles;
     }

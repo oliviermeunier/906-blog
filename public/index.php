@@ -56,6 +56,11 @@ switch($path) {
         $controller->logout();
         break;
 
+    case '/category':
+        $controller = new \App\Controller\ArticleController();
+        $controller->filterArticlesByCategory();
+        break;
+
     default:
         http_response_code(404);
         echo 'Erreur 404 : page non trouvée';

@@ -13,7 +13,7 @@
         <nav>
             <!-- Affichage dans le menu de la liste des catégories -->
             <?php foreach ((new \App\Model\CategoryModel)->getAllCategories() as $category): ?>
-                <a href=""><?=$category['label'];?></a>
+                <a href="/category?category_id=<?=$category['id_category'];?>"><?=$category['label'];?></a>
             <?php endforeach; ?>
 
             <!-- Si l'utilisateur n'est PAS connecté -->  
