@@ -28,41 +28,34 @@ if (array_key_exists('PATH_INFO', $_SERVER)){
 
 $path = $_SERVER['PATH_INFO'] ?? '/';
 
-// Routing : on associé chaque "route" ou "path" à un contrôleur
-switch($path) {
-    
-    case '/':
-        $controller = new \App\Controller\HomeController();
-        $controller->index();
-        break;
+try {
 
-    case '/article':
-        $controller = new \App\Controller\ArticleController();
-        $controller->index();
-        break;
+    $renderer = new \App\Service\Renderer\PHPRenderer();
+    //$twigRenderer = new \App\Service\Renderer\TwigRenderer();
 
-    case '/signup':
-        $controller = new \App\Controller\AccountController();
-        $controller->signup();
-        break;
+    // Routing : on associé chaque "route" ou "path" à un contrôleur
+    $routes = require '../app/routes.php';
 
-    case '/login':
-        $controller = new \App\Controller\AuthController();
-        $controller->login();
-        break;
+    // Gestion des erreurs 404
+    if (!array_key_exists($path, $routes)) {
+        throw new NotFoundException();
+    }
 
-    case '/logout':
-        $controller = new \App\Controller\AuthController();
-        $controller->logout();
-        break;
+    $action = $routes[$path];
+    $controllerClassname = '\\App\\Controller\\' . $action['controller'];
+    $method = $action['method'];
 
-    case '/category':
-        $controller = new \App\Controller\ArticleController();
-        $controller->filterArticlesByCategory();
-        break;
-
-    default:
-        http_response_code(404);
-        echo 'Erreur 404 : page non trouvée';
-        exit;    
+    $controller = new $controllerClassname($renderer);
+    echo $controller->$method();
+}
+catch(\App\Exception\NotFoundException $exception) {
+    http_response_code(404);
+    echo 'Erreur 404 : page non trouvée';
+    exit;
+}
+catch(PDOException $exception) {
+    echo 'Problème avec la BDD : ' . $exception->getMessage();
+}
+catch(Exception $exception) {
+    echo '[ERREUR] ' . $exception->getMessage();
 }

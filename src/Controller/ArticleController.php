@@ -4,8 +4,9 @@ namespace App\Controller;
 
 use App\Model\ArticleModel;
 use App\Model\CommentModel;
+use App\Framework\AbstractController;
 
-class ArticleController {
+class ArticleController extends AbstractController {
 
     /**
      * Action responsable de l'affichage de la page Article
@@ -18,9 +19,7 @@ class ArticleController {
             || !ctype_digit($_GET['article_id'])
         ) {
             // ... alors on affiche une page 404
-            http_response_code(404);
-            echo 'Erreur 404 : Page non trouvée';
-            exit; 
+            throw new \App\Exception\NotFoundException(); 
         }
 
         $articleId = intval($_GET['article_id']);
@@ -45,7 +44,7 @@ class ArticleController {
             // Si je n'ai pas d'erreur (le tableau d'erreurs est vide)...
             if (empty($errors)) {
 
-                $commentModel->addComment($content, $articleId, getUserId());
+                $commentModel->addComment($content, $articleId, $this->userSession->getUserId());
 
                 // Redirection HTTP pour repasser en GET et perdre les données (pour éviter de les poster à nouveau si on recharge la page)
                 // header('Location: /article?article_id=' . $articleId);

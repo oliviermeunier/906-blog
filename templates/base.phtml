@@ -17,7 +17,7 @@
             <?php endforeach; ?>
 
             <!-- Si l'utilisateur n'est PAS connecté -->  
-            <?php if (!isAuthenticated()): ?>
+            <?php if (!(new \App\Framework\UserSession())->isAuthenticated()): ?>
                 <a href="<?=url('/signup');?>">Créer un compte</a>
                 <a href="<?=url('/login');?>">Connexion</a>
             <!-- Sinon (si l'utilisateur est connecté) -->
@@ -28,8 +28,9 @@
     </header>
     <main>
         <!-- Affichage des messaghes flash -->
-         <?php if (hasFlash()): ?>
-            <?php foreach (getFlash() as $message): ?>
+        <?php $flashbag = new \App\Framework\FlashBag(); ?>
+         <?php if ($flashbag->hasFlash()): ?>
+            <?php foreach ($flashbag->getFlash() as $message): ?>
                 <p><?=$message;?></p>
             <?php endforeach; ?>
          <?php endif; ?>

@@ -18,7 +18,7 @@
     <?php endif; ?>
 
     <!-- Si l'utilisateur est connecté, on affiche le formulaire d'ajout de commentaire -->
-    <?php if (isAuthenticated()): ?>
+    <?php if ((new \App\Framework\UserSession())->isAuthenticated()): ?>
 
         <!-- Formulaire d'ajout de commentaire --> 
         <form action="<?=url('/article', ['article_id' => $article['id_article']]);?>" method="POST">

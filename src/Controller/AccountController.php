@@ -3,8 +3,11 @@
 namespace App\Controller;
 
 use App\Model\UserModel;
+use App\Framework\FlashBag;
+use App\Framework\AbstractController;
+use App\Exception\UserAlreadyExistsException;
 
-class AccountController {
+class AccountController extends AbstractController {
 
     public function signup()
     {
@@ -35,9 +38,7 @@ class AccountController {
                 $errors[] = 'Le champ "Email" est obligatoire';
             } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
                 $errors[] =  "\"$email\" n'est pas un email valide";
-            } elseif ($userModel->getUserByEmail($email)) {
-                $errors[] = 'Il existe déjà un compte associé à cet email';
-            }
+            } 
 
             if (strlen($password) < 8) {
                 $errors[] = 'Le mot de passe doit comporter au moins 8 caractères';
@@ -49,15 +50,21 @@ class AccountController {
                 // Hashage du mot de passe
                 $hash = password_hash($password, PASSWORD_DEFAULT);
 
-                // ...on insert les données dans la base
-                $userModel->createUser($firstname, $lastname, $email, $hash); 
+                try {
 
-                // Message flash de confirmation 
-                addFlash('Votre compte a bien été créé, vous pouvez vous connecter !');
+                    // ...on insert les données dans la base
+                    $userModel->createUser($firstname, $lastname, $email, $hash); 
 
-                // Redirection vers la page de connexion
-                header('Location: ' . url('/login'));
-                exit;
+                    // Message flash de confirmation 
+                    $this->addFlash('Votre compte a bien été créé, vous pouvez vous connecter !');
+
+                    // Redirection vers la page de connexion
+                    header('Location: ' . url('/login'));
+                    exit;
+                }
+                catch(UserAlreadyExistsException $exception) {
+                    $errors[] = $exception->getMessage();
+                }
             }
         }
 

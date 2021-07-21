@@ -2,8 +2,11 @@
 
 namespace App\Controller;
 
+use App\Framework\FlashBag;
+use App\Framework\UserSession;
+use App\Framework\AbstractController;
 
-class AuthController {
+class AuthController extends AbstractController {
 
     public function login()
     {
@@ -26,7 +29,7 @@ class AuthController {
             if (empty($errors)) {
 
                 // Enregistrement des informations de l'utilisateur en session
-                register(
+                $this->userSession->register(
                     $user['id_user'],
                     $user['firstname'],
                     $user['lastname'],
@@ -34,7 +37,7 @@ class AuthController {
                 );
 
                 // Message flash de confirmation 
-                addFlash('Connexion réussie !');
+                $this->addFlash('Connexion réussie !');
 
                 // Redirection vers la page d'accueil
                 header('Location: ' . url('/'));
@@ -51,10 +54,10 @@ class AuthController {
     public function logout()
     {
         // Déconnexion
-        logout();
+        $this->userSession->logout();
 
         // Message flash de confirmation 
-        addFlash('Vous êtes déconnecté');
+        $this->addFlash('Vous êtes déconnecté');
 
         // Redirection vers la page d'accueil
         header('Location: ' . url('/'));

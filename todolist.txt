@@ -1,0 +1,24 @@
+Création de classes
+[DONE] - création d'une classe FlashBag pour gérer les messages Flash
+[DONE] - création d'une classe UserSession pour gérer l'authentification de l'utilisateur
+
+[DONE] - Factorisation des controllers avec la création d'une classe AbstractController
+
+[DONE] Factorisation du routing
+
+[DONE] Les exceptions + application au blog
+
+Moteur de template
+[DONE] - création d'un moteur de template PHP
+- création d'un moteur de template TWIG
+
+Formulaire de contact : email, nom, prénom, message
+
+Administration
+- gestion du rôle Admin 
+- CRUD Articles : ajout, modification, suppression
+- Upload de fichier 
+- intégration de l'avatar sur la création de compte
+- passer sur Apache pour mise en production
+
+
